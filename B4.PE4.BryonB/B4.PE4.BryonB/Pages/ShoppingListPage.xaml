@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:bhv="clr-namespace:B4.PE4.BryonB.Behaviors" 
+             x:Name="ShoppingListContentPage"
+             x:Class="B4.PE4.BryonB.Pages.ShoppingListPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" BackgroundColor="LightBlue"
+                      Margin="0,20,0,0">
+            <StackLayout BackgroundColor="White" Margin="10,10,10,10">
+                <StackLayout Orientation="Horizontal" BackgroundColor="LightBlue">
+                    <Label Text="{Binding Naam}" IsVisible="{Binding LabelNameIsEnabled}"
+                           HorizontalOptions="FillAndExpand"/>
+                    <Entry x:Name="EntryNaam" Placeholder="Lijstnaam" 
+                            Text="{Binding Naam}"
+                            TextColor="Black" VerticalOptions="CenterAndExpand" 
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{Binding ChangeNameIsEnabled}"/>
+                    <Button Text="Change name" Command="{Binding WijzigNaamShoppingListCommand}"
+                        WidthRequest="150"></Button>
+                </StackLayout>
+                <ListView ItemsSource="{Binding ShoppingDetails}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid ColumnSpacing="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Product.Naam}"/>
+                                    <Entry Grid.Column="1"  Placeholder="aantal" Text="{Binding GevraagdAantal}"/>
+                                    <Button Grid.Column="2" Text="Change Quantity" 
+                                        Command="{Binding Source={x:Reference ShoppingListContentPage}, 
+                                                            Path=BindingContext.EditShoppingDetailCommand}"                                        
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"></Button>
+                                    <Button Grid.Column="3" Text="Delete"                                         
+                                        Command="{Binding Source={x:Reference ShoppingListContentPage}, 
+                                                            Path=BindingContext.DeleteShoppingDetailCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"></Button>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Text="Add product to your ShoppingList" Command="{Binding AddProductToShoppingListCommand}" BackgroundColor="LightBlue"></Button>
+                <Button Text="Delete this ShoppingList" Command="{Binding DeleteShoppingListCommand}" BackgroundColor="LightBlue"></Button>
+                <Button Text="Back" Command="{Binding TerugCommand}" BackgroundColor="LightBlue"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

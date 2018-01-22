@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:bhv="clr-namespace:B4.PE4.BryonB.Behaviors"
+             x:Name="ProductListContentPage"
+             x:Class="B4.PE4.BryonB.Pages.ProductListPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="List of products" />
+            <ListView ItemsSource="{Binding Producten}" >
+                <ListView.Behaviors>
+                    <!--<bhv:EventToCommandBehavior 
+                        EventName="ItemTapped"  
+                        Command="{Binding SelectProductCommand}"
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConv}" />-->
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnSpacing="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Column="0" Orientation="Vertical" VerticalOptions="FillAndExpand">
+                                    <Label Text="{Binding Naam}"/>
+                                    <Label Text="{Binding Result}"/>
+                                </StackLayout>
+                                <Button Grid.Column="1" Text="Edit" 
+                                        Command="{Binding Source={x:Reference ProductListContentPage}, 
+                                                            Path=BindingContext.EditCommand}"                                        
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"></Button>
+                                <Button Grid.Column="2" Text="Select"                                         
+                                        Command="{Binding Source={x:Reference ProductListContentPage}, 
+                                                            Path=BindingContext.SelectProductCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"></Button>
+                                <Button Grid.Column="3" Text="Delete"                                         
+                                        Command="{Binding Source={x:Reference ProductListContentPage},
+                                                            Path=BindingContext.DeleteProductCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"></Button>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Add a new product to your App"  Command="{Binding AddNewProductCommand}" BackgroundColor="LightBlue"></Button>
+            <Button Text="Back"  Command="{Binding TerugCommand}" BackgroundColor="LightBlue"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
